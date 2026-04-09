@@ -52,54 +52,55 @@ const HeroSection = () => {
       }} />
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
           {/* Left */}
-          <motion.div initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
+          <motion.div initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="text-center lg:text-left">
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/5 mb-8"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/5 mb-6 sm:mb-8 mx-auto lg:mx-0"
             >
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse_glow" />
               <span className="text-sm font-medium text-primary">Full-Service Digital Agency</span>
             </motion.div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-6">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black leading-tight mb-5 sm:mb-6">
               Building Digital{" "}
               <span className="text-gradient-multi">Excellence</span> Through{" "}
               <span className="text-gradient-warm">Innovation</span>
             </h1>
 
-            <p className="text-lg text-muted-foreground max-w-xl mb-8 leading-relaxed">
+            <p className="text-base sm:text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0 mb-7 sm:mb-8 leading-relaxed">
               Smart Code IT Solutions is a full-service digital transformation agency specializing in cutting-edge web development, AI automation, e-commerce, and strategic digital marketing.
             </p>
 
-            <div className="flex flex-wrap gap-4 mb-12">
+            <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-4 mb-10 sm:mb-12 justify-center lg:justify-start">
               <button
                 onClick={() => document.querySelector("#services")?.scrollIntoView({ behavior: "smooth" })}
-                className="px-7 py-3.5 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity neon-glow-green"
+                className="w-full sm:w-auto px-7 py-3.5 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity neon-glow-green"
               >
                 Explore Services
               </button>
               <button
                 onClick={() => document.querySelector("#portfolio")?.scrollIntoView({ behavior: "smooth" })}
-                className="px-7 py-3.5 rounded-lg border border-border text-foreground font-semibold hover:bg-secondary transition-colors"
+                className="w-full sm:w-auto px-7 py-3.5 rounded-lg border border-border text-foreground font-semibold hover:bg-secondary transition-colors"
               >
                 View Portfolio
               </button>
             </div>
 
-            <div className="flex gap-10">
+            <div className="grid grid-cols-3 gap-4 sm:gap-10 max-w-xl mx-auto lg:mx-0">
               {stats.map((s, i) => (
                 <motion.div
                   key={s.label}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 + i * 0.15 }}
+                  className="min-w-0"
                 >
-                  <div className="text-2xl sm:text-3xl font-black text-gradient-primary">{s.value}</div>
-                  <div className="text-sm text-muted-foreground">{s.label}</div>
+                  <div className="text-xl sm:text-3xl font-black text-gradient-primary">{s.value}</div>
+                  <div className="text-[11px] sm:text-sm text-muted-foreground leading-tight">{s.label}</div>
                 </motion.div>
               ))}
             </div>

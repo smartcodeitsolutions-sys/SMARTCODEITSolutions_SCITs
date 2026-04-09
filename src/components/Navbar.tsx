@@ -21,6 +21,22 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMobileOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
   const scrollTo = (href: string) => {
     setMobileOpen(false);
     const el = document.querySelector(href);
@@ -35,10 +51,13 @@ const Navbar = () => {
         scrolled ? "glass-strong shadow-lg shadow-background/50" : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto flex items-center justify-between py-4 px-4">
-        <button onClick={() => scrollTo("#home")} className="flex items-center gap-2">
-          <img src={logo} alt="SmartCode IT Solutions" className="h-10 w-10 rounded-md" />
-          <span className="text-xl font-bold text-foreground">
+      <div className="container mx-auto flex items-center justify-between py-3.5 px-4 gap-3">
+        <button onClick={() => scrollTo("#home")} className="flex min-w-0 items-center gap-2 text-left">
+          <img src={logo} alt="SmartCode IT Solutions" className="h-10 w-10 rounded-md shrink-0" />
+          <span className="hidden sm:block text-xl font-bold text-foreground whitespace-nowrap">
+            Smart<span className="text-primary">Code</span>
+          </span>
+          <span className="sm:hidden text-sm font-bold text-foreground whitespace-nowrap">
             Smart<span className="text-primary">Code</span>
           </span>
         </button>
@@ -72,25 +91,36 @@ const Navbar = () => {
       {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
+          <motion.button
+            type="button"
+            aria-label="Close menu overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-40 bg-black/40 md:hidden"
+            onClick={() => setMobileOpen(false)}
+          />
+        )}
+        {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass-strong border-t border-border"
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            className="md:hidden glass-strong border-t border-border relative z-50"
           >
-            <div className="container mx-auto py-4 px-4 flex flex-col gap-4">
+            <div className="container mx-auto py-4 px-4 flex flex-col gap-3">
               {navLinks.map((link) => (
                 <button
                   key={link.name}
                   onClick={() => scrollTo(link.href)}
-                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors text-left"
+                  className="w-full rounded-lg px-3 py-3 text-left text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
                 >
                   {link.name}
                 </button>
               ))}
               <button
                 onClick={() => scrollTo("#contact")}
-                className="px-5 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold w-fit"
+                className="w-full px-5 py-3 rounded-lg bg-primary text-primary-foreground text-sm font-semibold"
               >
                 Book Consultation
               </button>
