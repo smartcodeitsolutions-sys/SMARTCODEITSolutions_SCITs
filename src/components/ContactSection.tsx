@@ -56,7 +56,7 @@ const ContactSection = () => {
     return Object.keys(nextErrors).length === 0;
   };
 
-  const selectedService = services.find((service) => service.title === form.service);
+  const selectedService = services.find((service) => service.slug === form.service);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
@@ -88,14 +88,18 @@ const ContactSection = () => {
     setSubmissionState({ status: "sending", message: "Sending your message..." });
 
     try {
+      const serviceTitle = selectedService?.title || form.service;
+      
       const payload = {
         name: form.name.trim(),
         email: form.email.trim(),
-        service: form.service,
+        service: serviceTitle,
         message: form.message.trim(),
         _replyto: form.email.trim(),
         _subject: "Website Contact Submission",
       };
+
+      console.log("Submitting payload:", payload);
 
       const response = await fetch(FORM_ENDPOINT, {
         method: "POST",
@@ -106,17 +110,25 @@ const ContactSection = () => {
         body: JSON.stringify(payload),
       });
 
+      console.log("Response status:", response.status);
+      console.log("Response headers:", response.headers);
+
       if (!response.ok) {
         const data = await response.json().catch(() => null);
-        const errorMessage = data?.error || "Submission failed";
+        console.error("Formspree error response:", data);
+        const errorMessage = data?.error || data?.errors?.[0] || "Submission failed";
         throw new Error(errorMessage);
       }
+
+      const responseData = await response.json();
+      console.log("Formspree success response:", responseData);
 
       setForm({ name: "", email: "", service: "", message: "" });
       setErrors({});
       setSubmissionState({ status: "success", message: "Thank you! Your message was submitted successfully." });
     } catch (err) {
       const message = err instanceof Error ? err.message : "Something went wrong while sending your message. Please try again in a moment.";
+      console.error("Submission error:", err);
       setSubmissionState({
         status: "error",
         message,
@@ -189,7 +201,7 @@ const ContactSection = () => {
                   aria-expanded={dropdownOpen}
                 >
                   <span className={`${form.service ? "text-foreground" : "text-muted-foreground"}`}>
-                    {form.service || "Select a service"}
+                    {form.service ? services.find((s) => s.slug === form.service)?.title || "Select a service" : "Select a service"}
                   </span>
                   <ChevronDown className="ml-2" size={18} />
                 </button>
@@ -205,9 +217,9 @@ const ContactSection = () => {
                         <li
                           key={service.id}
                           role="option"
-                          aria-selected={form.service === service.title}
+                          aria-selected={form.service === service.slug}
                           onClick={() => {
-                            setForm((current) => ({ ...current, service: service.title }));
+                            setForm((current) => ({ ...current, service: service.slug }));
                             if (errors.service) setErrors((c) => ({ ...c, service: undefined }));
                             setDropdownOpen(false);
                           }}

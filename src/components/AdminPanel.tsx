@@ -151,24 +151,24 @@ const AdminPanel = () => {
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex justify-between items-center mb-8"
+          className="flex flex-col gap-4 mb-8 sm:flex-row sm:justify-between sm:items-center"
         >
           <div>
             <h1 className="text-3xl md:text-4xl font-black text-foreground">Service Manager</h1>
             <p className="text-muted-foreground mt-1">Control which services are active or inactive</p>
           </div>
-          <div className="flex gap-3">
+          <div className="flex flex-col gap-2 sm:flex-row sm:gap-3">
             <button
               type="button"
               onClick={() => navigate('/')}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-secondary/70 text-foreground hover:bg-secondary/90 transition-colors"
+              className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-secondary/70 text-foreground hover:bg-secondary/90 transition-colors"
             >
               Back to website
             </button>
             <button
               type="button"
               onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-destructive/20 text-destructive hover:bg-destructive/30 transition-colors"
+              className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-destructive/20 text-destructive hover:bg-destructive/30 transition-colors"
             >
               <LogOut size={18} />
               Logout
@@ -181,16 +181,16 @@ const AdminPanel = () => {
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-6 p-4 rounded-lg bg-amber-500/20 border border-amber-500/50 flex items-start gap-3"
+            className="mb-6 p-4 rounded-lg bg-amber-500/20 border border-amber-500/50 flex flex-col sm:flex-row gap-3"
           >
-            <AlertCircle className="text-amber-600 flex-shrink-0 mt-0.5" size={20} />
+            <AlertCircle className="text-amber-600 flex-shrink-0 mt-0.5 sm:mt-0" size={20} />
             <div className="text-sm text-amber-700 flex-1">
               <p className="font-semibold mb-1">Supabase is not configured</p>
               <p>Set <code className="bg-amber-900/20 px-1">VITE_SUPABASE_URL</code> and <code className="bg-amber-900/20 px-1">VITE_SUPABASE_ANON_KEY</code> in your environment and restart.</p>
               <div className="mt-3 p-3 bg-amber-900/10 rounded text-xs">
                 <p className="font-medium mb-2">Current env values:</p>
-                <p><strong>VITE_SUPABASE_URL:</strong> {import.meta.env.VITE_SUPABASE_URL ? `${import.meta.env.VITE_SUPABASE_URL.substring(0, 20)}...` : 'undefined'}</p>
-                <p><strong>VITE_SUPABASE_ANON_KEY:</strong> {import.meta.env.VITE_SUPABASE_ANON_KEY ? `${import.meta.env.VITE_SUPABASE_ANON_KEY.substring(0, 10)}...` : 'undefined'}</p>
+                <p className="break-all"><strong>VITE_SUPABASE_URL:</strong> {import.meta.env.VITE_SUPABASE_URL ? `${import.meta.env.VITE_SUPABASE_URL.substring(0, 20)}...` : 'undefined'}</p>
+                <p className="break-all"><strong>VITE_SUPABASE_ANON_KEY:</strong> {import.meta.env.VITE_SUPABASE_ANON_KEY ? `${import.meta.env.VITE_SUPABASE_ANON_KEY.substring(0, 10)}...` : 'undefined'}</p>
               </div>
             </div>
           </motion.div>
@@ -201,15 +201,15 @@ const AdminPanel = () => {
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-6 p-4 rounded-lg bg-green-500/10 border border-green-500/30 flex items-start gap-3"
+            className="mb-6 p-4 rounded-lg bg-green-500/10 border border-green-500/30 flex flex-col sm:flex-row gap-3"
           >
-            <Check className="text-green-600 flex-shrink-0 mt-0.5" size={20} />
+            <Check className="text-green-600 flex-shrink-0 mt-0.5 sm:mt-0" size={20} />
             <div className="text-sm text-green-700 flex-1">
               <p className="font-semibold mb-1">Supabase is configured</p>
               <div className="mt-2 p-3 bg-green-900/10 rounded text-xs">
                 <p className="font-medium mb-2">Loaded env values:</p>
-                <p><strong>VITE_SUPABASE_URL:</strong> {import.meta.env.VITE_SUPABASE_URL ? `${import.meta.env.VITE_SUPABASE_URL.substring(0, 20)}...` : 'undefined'}</p>
-                <p><strong>VITE_SUPABASE_ANON_KEY:</strong> {import.meta.env.VITE_SUPABASE_ANON_KEY ? `${import.meta.env.VITE_SUPABASE_ANON_KEY.substring(0, 10)}...` : 'undefined'}</p>
+                <p className="break-all"><strong>VITE_SUPABASE_URL:</strong> {import.meta.env.VITE_SUPABASE_URL ? `${import.meta.env.VITE_SUPABASE_URL.substring(0, 20)}...` : 'undefined'}</p>
+                <p className="break-all"><strong>VITE_SUPABASE_ANON_KEY:</strong> {import.meta.env.VITE_SUPABASE_ANON_KEY ? `${import.meta.env.VITE_SUPABASE_ANON_KEY.substring(0, 10)}...` : 'undefined'}</p>
               </div>
             </div>
           </motion.div>
@@ -221,12 +221,12 @@ const AdminPanel = () => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="mb-6 p-4 rounded-lg bg-red-500/20 border border-red-500/50 flex items-start gap-3"
+            className="mb-6 p-4 rounded-lg bg-red-500/20 border border-red-500/50 flex flex-col sm:flex-row gap-3"
           >
-            <AlertCircle className="text-red-600 flex-shrink-0 mt-0.5" size={20} />
+            <AlertCircle className="text-red-600 flex-shrink-0 mt-0.5 sm:mt-0" size={20} />
             <div className="text-sm text-red-700 flex-1">
               <p className="font-semibold">Error</p>
-              <p>{displayError}</p>
+              <p className="break-words">{displayError}</p>
             </div>
             <button
               onClick={() => setError(null)}
@@ -238,16 +238,16 @@ const AdminPanel = () => {
         )}
 
 
-        <div className="flex flex-col gap-4 mb-6 sm:flex-row sm:items-center sm:justify-between">
-          <div>
+        <div className="flex flex-col gap-4 mb-6 sm:flex-row sm:items-start sm:justify-between">
+          <div className="flex-1">
             <p className="text-sm text-muted-foreground">Toggle services and click Save changes to persist status in Supabase.</p>
           </div>
-          <div className="flex flex-wrap gap-3">
+          <div className="w-full sm:w-auto flex gap-2 sm:gap-3">
             <button
               type="button"
               onClick={handleSaveChanges}
               disabled={!hasChanges || isSaving || loading}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSaving ? <Loader2 size={16} className="animate-spin" /> : "Save changes"}
             </button>
@@ -297,16 +297,16 @@ const AdminPanel = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.05 }}
-                className={`glass rounded-xl p-6 flex items-center justify-between transition-all ${
+                className={`glass rounded-xl p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 transition-all ${
                   service.active ? "border-l-4 border-green-500" : "border-l-4 border-red-500"
                 }`}
               >
-                <div className="flex-1">
+                <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-3 mb-2">
-                    <div className={`w-3 h-3 rounded-full ${service.active ? "bg-green-500" : "bg-red-500"}`} />
-                    <h3 className="font-semibold text-foreground">{service.title}</h3>
+                    <div className={`w-3 h-3 rounded-full flex-shrink-0 ${service.active ? "bg-green-500" : "bg-red-500"}`} />
+                    <h3 className="font-semibold text-foreground truncate">{service.title}</h3>
                   </div>
-                  <p className="text-sm text-muted-foreground max-w-2xl">{service.description}</p>
+                  <p className="text-sm text-muted-foreground">{service.description}</p>
                   <p className="text-xs text-muted-foreground mt-2">
                     Status: <span className={service.active ? "text-green-500 font-semibold" : "text-red-500 font-semibold"}>
                       {service.active ? "Active" : "Inactive (Wishlist)"}
@@ -314,11 +314,11 @@ const AdminPanel = () => {
                   </p>
                 </div>
 
-                <div className="flex items-center gap-3 ml-4">
+                <div className="flex items-center gap-2 sm:ml-4 w-full sm:w-auto">
                   <button
                     onClick={() => handleToggleService(service.id)}
                     disabled={togglingId === service.id}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all ${
+                    className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all ${
                       service.active
                         ? "bg-green-500/20 text-green-600 hover:bg-green-500/30"
                         : "bg-red-500/20 text-red-600 hover:bg-red-500/30"
