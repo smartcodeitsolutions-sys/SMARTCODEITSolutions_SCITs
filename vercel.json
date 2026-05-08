@@ -1,4 +1,3 @@
 {
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
-}</content>
-<parameter name="filePath">c:\Users\muzam\Desktop\PROJECTS\P_153(SmartCodeIT)Website - -\vercel.json
+}

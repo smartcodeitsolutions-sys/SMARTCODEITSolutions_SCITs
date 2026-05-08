@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import {
   Send,
@@ -8,6 +8,7 @@ import {
   MessageCircle,
   CheckCircle,
   AlertTriangle,
+  ChevronDown,
 } from "lucide-react";
 import { useServices } from "@/hooks/useServices";
 
@@ -56,6 +57,18 @@ const ContactSection = () => {
   };
 
   const selectedService = services.find((service) => service.title === form.service);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
+  }, []);
 
   const handleChange =
     (field: keyof typeof form) =>
@@ -167,24 +180,51 @@ const ContactSection = () => {
 
             <div>
               <label className="text-sm font-semibold text-foreground mb-2 block">Service Needed</label>
-              <select
-                name="service"
-                value={form.service}
-                onChange={handleChange("service")}
-                className="w-full appearance-none px-4 py-3 rounded-2xl bg-secondary border border-border text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all"
-              >
-                <option value="">Select a service</option>
-                {services && services.length > 0 ? (
-                  services.map((service) => (
-                    <option key={service.id} value={service.title}>
-                      {service.active ? "🟢 " : "🔴 "}
-                      {service.title}
-                    </option>
-                  ))
-                ) : (
-                  <option disabled>{loading ? "Loading services..." : "No services available"}</option>
+              <div className="relative" ref={dropdownRef}>
+                <button
+                  type="button"
+                  onClick={() => setDropdownOpen((s) => !s)}
+                  className="w-full flex items-center justify-between gap-3 px-4 py-3 rounded-2xl bg-secondary border border-border text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all"
+                  aria-haspopup="listbox"
+                  aria-expanded={dropdownOpen}
+                >
+                  <span className={`${form.service ? "text-foreground" : "text-muted-foreground"}`}>
+                    {form.service || "Select a service"}
+                  </span>
+                  <ChevronDown className="ml-2" size={18} />
+                </button>
+
+                {dropdownOpen && (
+                  <ul
+                    role="listbox"
+                    tabIndex={-1}
+                    className="absolute z-40 mt-2 max-h-60 w-full overflow-auto rounded-2xl bg-secondary border border-border p-2 shadow-xl"
+                  >
+                    {services && services.length > 0 ? (
+                      services.map((service) => (
+                        <li
+                          key={service.id}
+                          role="option"
+                          aria-selected={form.service === service.title}
+                          onClick={() => {
+                            setForm((current) => ({ ...current, service: service.title }));
+                            if (errors.service) setErrors((c) => ({ ...c, service: undefined }));
+                            setDropdownOpen(false);
+                          }}
+                          className="flex items-center justify-between gap-3 cursor-pointer rounded-xl px-4 py-3 hover:bg-white/5 transition-colors"
+                        >
+                          <div className="text-sm text-foreground">{service.title}</div>
+                          <div className="ml-2">
+                            <span className={`inline-block h-3 w-3 rounded-full ${service.active ? "bg-emerald-400" : "bg-rose-400"}`} />
+                          </div>
+                        </li>
+                      ))
+                    ) : (
+                      <li className="px-4 py-3 text-sm text-muted-foreground">{loading ? "Loading services..." : "No services available"}</li>
+                    )}
+                  </ul>
                 )}
-              </select>
+              </div>
               {errors.service && <p className="mt-2 text-xs text-rose-400">{errors.service}</p>}
               {form.service && (
                 <div
