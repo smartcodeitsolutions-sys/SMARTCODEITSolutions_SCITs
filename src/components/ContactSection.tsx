@@ -35,7 +35,7 @@ const ContactSection = () => {
 
     window.addEventListener("servicesUpdated", handleServicesUpdated);
     return () => window.removeEventListener("servicesUpdated", handleServicesUpdated);
-  }, []);
+  }, [fetchServices]);
 
   const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
 

@@ -4,7 +4,7 @@ import { Play, X, ExternalLink, Mail, UserPlus } from "lucide-react";
 
 // Extract YouTube video ID from URL
 const getYouTubeVideoId = (url: string) => {
-  const match = url.match(/(?:https?:\/\/)?(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([^\&\n?#]+)/);
+  const match = url.match(/(?:https?:\/\/)?(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([^&\n?#]+)/);
   return match ? match[1] : null;
 };
 
