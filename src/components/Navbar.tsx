@@ -52,15 +52,13 @@ const Navbar = () => {
         scrolled ? "glass-strong shadow-lg shadow-background/50" : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto flex items-center justify-between py-3.5 px-4 gap-3">
-        <button onClick={() => scrollTo("#home")} className="flex min-w-0 items-center gap-2 text-left">
-          <img src={logo} alt="SmartCode IT Solutions" className="h-10 w-10 rounded-md shrink-0" />
-          <span className="hidden sm:block text-xl font-bold text-foreground whitespace-nowrap">
-            Smart<span className="text-primary">Code</span>
-          </span>
-          <span className="sm:hidden text-sm font-bold text-foreground whitespace-nowrap">
-            Smart<span className="text-primary">Code</span>
-          </span>
+      <div className="container mx-auto max-w-7xl flex items-center justify-between py-3 px-4 sm:px-6 gap-3">
+        <button onClick={() => scrollTo("#home")} className="flex min-w-0 items-center gap-3 text-left">
+          <img src={logo} alt="SmartCode IT Solutions" className="h-10 w-10 rounded-2xl shrink-0" />
+          <div className="hidden sm:flex flex-col leading-tight">
+            <span className="text-base font-semibold text-foreground">Smart<span className="text-primary">Code</span></span>
+            <span className="text-[11px] uppercase tracking-[0.24em] text-muted-foreground">Digital Agency</span>
+          </div>
         </button>
 
         {/* Desktop */}
@@ -77,14 +75,18 @@ const Navbar = () => {
           ))}
           <button
             onClick={() => scrollTo("#contact")}
-            className="px-5 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity neon-glow-green"
+            className="px-5 py-2.5 rounded-full bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity neon-glow-green"
           >
             Book Consultation
           </button>
         </div>
 
         {/* Mobile toggle */}
-        <button className="md:hidden text-foreground" onClick={() => setMobileOpen(!mobileOpen)}>
+        <button
+          className="md:hidden flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-secondary/90 text-foreground shadow-lg shadow-black/20 transition-all hover:bg-secondary"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+        >
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
@@ -104,27 +106,55 @@ const Navbar = () => {
         )}
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -12 }}
+            initial={{ opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            className="md:hidden glass-strong border-t border-border relative z-50"
+            exit={{ opacity: 0, y: -16 }}
+            className="md:hidden fixed inset-x-0 top-0 z-50 glass-strong border-b border-border shadow-2xl shadow-black/30"
           >
-            <div className="container mx-auto py-4 px-4 flex flex-col gap-3">
-              {navLinks.map((link) => (
+            <div className="container mx-auto max-w-7xl px-4 py-5">
+              <div className="flex items-center justify-between gap-3 mb-4">
                 <button
-                  key={link.name}
-                  onClick={() => scrollTo(link.href)}
-                  className="w-full rounded-lg px-3 py-3 text-left text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+                  onClick={() => scrollTo("#home")}
+                  className="flex items-center gap-3 text-left"
                 >
-                  {link.name}
+                  <img src={logo} alt="SmartCode IT Solutions" className="h-10 w-10 rounded-2xl" />
+                  <div className="hidden sm:flex flex-col leading-tight">
+                    <span className="text-base font-semibold text-foreground">Smart<span className="text-primary">Code</span></span>
+                    <span className="text-[11px] uppercase tracking-[0.24em] text-muted-foreground">Digital Agency</span>
+                  </div>
                 </button>
-              ))}
-              <button
-                onClick={() => scrollTo("#contact")}
-                className="w-full px-5 py-3 rounded-lg bg-primary text-primary-foreground text-sm font-semibold"
-              >
-                Book Consultation
-              </button>
+                <button
+                  type="button"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-secondary/90 text-foreground shadow-sm transition-all hover:bg-secondary"
+                  aria-label="Close mobile menu"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+              <div className="space-y-2">
+                {navLinks.map((link) => (
+                  <button
+                    key={link.name}
+                    onClick={() => scrollTo(link.href)}
+                    className="w-full rounded-3xl px-4 py-4 text-left text-base font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-all"
+                  >
+                    {link.name}
+                  </button>
+                ))}
+              </div>
+              <div className="mt-4">
+                <button
+                  onClick={() => scrollTo("#contact")}
+                  className="w-full rounded-3xl bg-primary px-5 py-4 text-sm font-semibold text-primary-foreground shadow-neon-green transition-all hover:opacity-95"
+                >
+                  Book Consultation
+                </button>
+              </div>
+              <div className="mt-4 rounded-3xl border border-white/10 bg-secondary/80 p-4 text-sm text-muted-foreground">
+                <p className="font-semibold text-foreground mb-1">Need help deciding?</p>
+                <p>Tap any section to explore our services and launch your project faster.</p>
+              </div>
             </div>
           </motion.div>
         )}

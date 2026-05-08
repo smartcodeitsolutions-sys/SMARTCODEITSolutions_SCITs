@@ -131,16 +131,16 @@ const ContactSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid gap-8 lg:grid-cols-2 items-start">
           <motion.form
             onSubmit={handleSubmit}
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="glass rounded-3xl p-8 space-y-5 shadow-xl border border-white/10"
+            className="glass rounded-[32px] p-6 md:p-8 space-y-6 shadow-xl border border-white/10"
           >
             <div>
-              <label className="text-sm font-medium text-foreground mb-2 block">Full Name</label>
+              <label className="text-sm font-semibold text-foreground mb-2 block">Full Name</label>
               <input
                 type="text"
                 name="name"
@@ -153,7 +153,7 @@ const ContactSection = () => {
             </div>
 
             <div>
-              <label className="text-sm font-medium text-foreground mb-2 block">Email</label>
+              <label className="text-sm font-semibold text-foreground mb-2 block">Email</label>
               <input
                 type="email"
                 name="email"
@@ -166,12 +166,12 @@ const ContactSection = () => {
             </div>
 
             <div>
-              <label className="text-sm font-medium text-foreground mb-2 block">Service Needed</label>
+              <label className="text-sm font-semibold text-foreground mb-2 block">Service Needed</label>
               <select
                 name="service"
                 value={form.service}
                 onChange={handleChange("service")}
-                className="w-full px-4 py-3 rounded-2xl bg-secondary border border-border text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all"
+                className="w-full appearance-none px-4 py-3 rounded-2xl bg-secondary border border-border text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all"
               >
                 <option value="">Select a service</option>
                 {services && services.length > 0 ? (
@@ -188,7 +188,7 @@ const ContactSection = () => {
               {errors.service && <p className="mt-2 text-xs text-rose-400">{errors.service}</p>}
               {form.service && (
                 <div
-                  className={`mt-4 rounded-2xl border p-4 text-sm ${
+                  className={`mt-4 rounded-3xl border p-4 text-sm ${
                     selectedService?.active
                       ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-100"
                       : "border-rose-500/30 bg-rose-500/10 text-rose-100"
@@ -263,7 +263,7 @@ const ContactSection = () => {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="space-y-6"
+            className="space-y-5 sm:space-y-6"
           >
             {[
               { icon: Phone, title: "Phone", info: "+92 302 2120509" },
@@ -274,7 +274,7 @@ const ContactSection = () => {
               return (
                 <div
                   key={item.title}
-                  className="glass rounded-3xl p-6 flex items-center gap-4 border border-white/10"
+                  className="glass rounded-3xl p-5 flex items-start gap-4 border border-white/10 shadow-sm"
                 >
                   <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
                     <Icon className="text-primary" size={20} />
@@ -291,7 +291,7 @@ const ContactSection = () => {
               href="https://wa.me/923022120509"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-4 glass rounded-3xl p-6 border border-white/10 hover:border-primary/30 transition-all"
+              className="group flex items-center gap-4 glass rounded-3xl p-5 border border-white/10 hover:border-primary/30 transition-all shadow-sm"
             >
               <div className="w-12 h-12 rounded-2xl bg-neon-green/20 flex items-center justify-center">
                 <MessageCircle className="text-primary" size={20} />
