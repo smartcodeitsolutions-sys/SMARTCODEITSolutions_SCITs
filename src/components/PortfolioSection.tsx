@@ -9,7 +9,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const categories = ["All", "Web Development", "E-commerce", "Marketing", "Branding", "AI Automation", "Apps"];
+const categories = ["All", "Web Development", "Ecommerce Store"];
+const whatsAppLink = "https://wa.me/923022120509";
 
 const projects = [
   {
@@ -21,7 +22,7 @@ const projects = [
     caseStudy: {
       status: "Discontinued Project ⚒️",
       developedBy: "Smart Code IT Solutions",
-      github: "Add your GitHub link here",
+      github: "https://github.com/smartcodeitsolutions-sys/Blood_Bridge",
       overview:
         "Blood Bridge is a full-stack blood donation management system designed to connect donors and recipients quickly during emergencies. It allows users to register as donors, search by blood group and location, and submit blood requests through a simple and responsive interface.",
       problem:
@@ -34,23 +35,61 @@ const projects = [
       future: ["API integration", "Mobile app version", "AI-based donor matching", "Live location tracking"],
     },
   },
-  { title: "TechVault E-commerce Platform", category: "E-commerce", desc: "Full-stack e-commerce solution with AI-powered recommendations and real-time analytics.", color: "neon-glow-green" },
-  { title: "FinFlow Dashboard", category: "Web Development", desc: "Real-time financial analytics dashboard with interactive charts and automated reporting.", color: "neon-glow-cyan" },
-  { title: "GrowthPulse Campaign", category: "Marketing", desc: "Multi-channel digital marketing campaign achieving 340% ROI increase.", color: "neon-glow-purple" },
-  { title: "Artisan Brand Identity", category: "Branding", desc: "Complete brand overhaul including logo, guidelines, and digital presence.", color: "neon-glow-green" },
-  { title: "AutoBot AI Assistant", category: "AI Automation", desc: "Custom AI chatbot reducing customer support tickets by 65%.", color: "neon-glow-cyan" },
-  { title: "FitTrack Mobile App", category: "Apps", desc: "Cross-platform fitness app with real-time tracking and social features.", color: "neon-glow-purple" },
+  {
+    title: "SocialSync Pro",
+    category: "Web Development",
+    desc: "Modern social media management platform for agencies, businesses, and creators to streamline content scheduling, analytics, and team collaboration.",
+    color: "neon-glow-cyan",
+    images: ["/p2/1.png", "/p2/2.png", "/p2/3.png"],
+    caseStudy: {
+      developedBy: "Smart Code IT Solutions",
+      github: "https://github.com/smartcodeitsolutions-sys/SocialSync-Pro__SCITs",
+      overview:
+        "SocialSync Pro is a modern and professional Social Media Management (SMM) platform designed for agencies, businesses, creators, and digital marketing teams. It provides a centralized dashboard for managing content, scheduling posts, handling campaigns, monitoring analytics, and organizing team workflows efficiently.",
+      problem:
+        "Social media agencies and businesses struggle to manage multiple social accounts efficiently, lacking centralized tools for content scheduling, analytics tracking, team collaboration, and campaign management across different platforms.",
+      solution:
+        "SocialSync Pro delivers a comprehensive SMM solution with content scheduling, advanced analytics dashboard, team collaboration tools, media asset management, and campaign management—all accessible from a single responsive interface.",
+      features: ["Content Scheduling", "Analytics Dashboard", "Team Collaboration", "Media Management", "Responsive Design", "Campaign Management", "Secure Authentication", "Scalable Architecture"],
+      techStack: ["React.js", "Tailwind CSS", "Node.js", "Express.js", "MongoDB", "JWT Authentication"],
+      statusNote: "Under continuous improvement with ongoing enhancements and feature polish.",
+      future: ["Advanced AI-powered content suggestions", "Multi-platform automation", "Real-time collaboration tools", "Custom reporting templates"],
+    },
+  },
+  {
+    title: "StoreBridge",
+    category: "Ecommerce Store",
+    desc: "Modern multi-vendor e-commerce marketplace platform connecting vendors and customers in one seamless ecosystem.",
+    color: "neon-glow-green",
+    images: ["/p3/1.png", "/p3/2.png", "/p3/3.png"],
+    caseStudy: {
+      developedBy: "Smart Code IT Solutions",
+      github: "https://github.com/smartcodeitsolutions-sys/STOREBRIDGE_SCITs",
+      overview:
+        "StoreBridge is a powerful and scalable multi-vendor e-commerce platform built to connect vendors and customers in one seamless marketplace ecosystem. The platform enables multiple sellers to manage their own stores, products, and orders while providing customers with a smooth shopping experience.",
+      problem:
+        "Traditional e-commerce platforms limit vendors to single-store operations, making it difficult for marketplaces to scale and provide diverse product offerings to customers.",
+      solution:
+        "StoreBridge creates a comprehensive multi-vendor marketplace where vendors can manage their own stores independently while customers enjoy a unified shopping experience with diverse products, competitive pricing, and seamless transactions.",
+      features: ["Customer Storefront", "Multi-Vendor System", "Admin Dashboard", "Responsive Design", "Vendor Onboarding", "Product Management", "Order Tracking", "Sales Analytics"],
+      techStack: ["Next.js", "React.js", "Tailwind CSS", "Redux Toolkit", "Lucide React", "JavaScript/TypeScript"],
+      statusNote: "Built for scalability with ongoing improvements focused on vendor management and marketplace operations.",
+      future: ["Advanced vendor analytics", "AI-powered product recommendations", "Integrated payment gateways", "Mobile app companion", "Multi-language support"],
+    },
+  },
 ];
 
 
 const SlideshowPreview = ({
   images,
   title,
+  category,
   onOpenCaseStudy,
   onOpenImage,
 }: {
   images: string[];
   title: string;
+  category: string;
   onOpenCaseStudy: () => void;
   onOpenImage: (index: number) => void;
 }) => {
@@ -84,7 +123,7 @@ const SlideshowPreview = ({
       <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
       <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
         <span className="rounded-full bg-background/70 backdrop-blur px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-foreground">
-          Web Development
+          {category}
         </span>
         <div className="flex gap-1.5">
           {images.map((image, index) => (
@@ -117,6 +156,14 @@ const PortfolioSection = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [expandedProjects, setExpandedProjects] = useState(false);
 
+  const scrollToContact = () => {
+    setSelectedProjectTitle(null);
+    const contactSection = document.querySelector("#contact");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   const filtered = filter === "All" ? projects : projects.filter((p) => p.category === filter);
   const portfolioItemsToShow = expandedProjects ? filtered : filtered.slice(0, 4);
   
@@ -135,6 +182,11 @@ const PortfolioSection = () => {
             Featured <span className="text-gradient-primary">Portfolio</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">Explore our latest projects and see how we transform ideas into digital reality.</p>
+          <div className="mt-8 mx-auto max-w-3xl rounded-3xl border border-white/10 bg-secondary p-6 text-left shadow-2xl shadow-black/10">
+            <p className="text-sm uppercase tracking-[0.24em] text-primary font-semibold mb-3">Client Review</p>
+            <p className="text-base sm:text-lg font-semibold text-foreground">“SocialSync Pro helped our marketing team coordinate campaigns and track engagement across every channel with ease. The launch improved our workflow and gave us real-time analytics exactly when we needed it.”</p>
+            <p className="mt-4 text-sm text-muted-foreground">— Ayesha Khan, Marketing Director</p>
+          </div>
         </motion.div>
 
         {/* Dropdown Filter */}
@@ -172,10 +224,11 @@ const PortfolioSection = () => {
                 whileHover={{ y: -8 }}
                 className={`group rounded-xl overflow-hidden glass hover:${project.color} transition-all duration-300 cursor-pointer`}
               >
-                {project.title === "Blood Bridge" ? (
+                {project.images && project.caseStudy ? (
                   <SlideshowPreview
                     images={project.images}
                     title={project.title}
+                    category={project.category}
                     onOpenCaseStudy={() => setSelectedProjectTitle(project.title)}
                     onOpenImage={(index) => {
                       setSelectedImageProjectTitle(project.title);
@@ -201,6 +254,22 @@ const PortfolioSection = () => {
                   <span className="text-[10px] font-semibold text-primary uppercase tracking-wider">{project.category}</span>
                   <h3 className="font-bold text-foreground mt-1 mb-2 text-sm">{project.title}</h3>
                   <p className="text-muted-foreground text-xs leading-relaxed">{project.desc}</p>
+                  <div className="mt-4 flex flex-wrap gap-3">
+                    <a
+                      href="#contact"
+                      className="inline-flex items-center justify-center rounded-full border border-white/10 bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground transition-all hover:bg-primary/90"
+                    >
+                      Contact Us
+                    </a>
+                    <a
+                      href={whatsAppLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center rounded-full border border-border bg-secondary px-4 py-2 text-xs font-semibold text-foreground transition-all hover:bg-secondary/90"
+                    >
+                      Join Us
+                    </a>
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -247,7 +316,7 @@ const PortfolioSection = () => {
                 className="glass-strong rounded-2xl max-w-2xl w-full p-8 max-h-[80vh] overflow-y-auto"
                 onClick={(e) => e.stopPropagation()}
               >
-                {selectedProject.title === "Blood Bridge" && (
+                {selectedProject.images && selectedProject.caseStudy && (
                   <div className="mb-6 overflow-hidden rounded-2xl border border-border">
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-border">
                       {(selectedProject as typeof projects[number] & { images?: string[] }).images?.map((image, index) => (
@@ -260,7 +329,7 @@ const PortfolioSection = () => {
                             setSelectedImageIndex(index);
                           }}
                         >
-                          <img src={image} alt={`Blood Bridge screenshot ${index + 1}`} className="h-full w-full object-cover" />
+                          <img src={image} alt={`${selectedProject.title} screenshot ${index + 1}`} className="h-full w-full object-cover" />
                         </button>
                       ))}
                     </div>
@@ -270,8 +339,8 @@ const PortfolioSection = () => {
                   <div>
                     <span className="text-xs font-semibold text-primary uppercase tracking-wider">{selectedProject.category}</span>
                     <h3 className="text-2xl font-black text-foreground mt-1">{selectedProject.title}</h3>
-                    {selectedProject.title === "Blood Bridge" && (
-                      <p className="mt-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Discontinued Project ⚒️</p>
+                    {selectedProject.caseStudy?.status && (
+                      <p className="mt-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">{selectedProject.caseStudy.status}</p>
                     )}
                   </div>
                   <button onClick={() => setSelectedProjectTitle(null)} className="text-muted-foreground hover:text-foreground transition-colors">
@@ -282,39 +351,43 @@ const PortfolioSection = () => {
                   <div>
                     <h4 className="font-bold text-foreground mb-2">Overview</h4>
                     <p className="text-muted-foreground text-sm">
-                      {selectedProject.title === "Blood Bridge" ? selectedProject.caseStudy?.overview : selectedProject.desc}
+                      {selectedProject.caseStudy?.overview ?? selectedProject.desc}
                     </p>
                   </div>
                   <div>
                     <h4 className="font-bold text-foreground mb-2">Problem</h4>
                     <p className="text-muted-foreground text-sm">
-                      {selectedProject.title === "Blood Bridge"
-                        ? selectedProject.caseStudy?.problem
-                        : "The client needed a comprehensive digital solution to modernize their operations and improve customer engagement across all channels."}
+                      {selectedProject.caseStudy?.problem ?? "The client needed a comprehensive digital solution to modernize their operations and improve customer engagement across all channels."}
                     </p>
                   </div>
                   <div>
                     <h4 className="font-bold text-foreground mb-2">Solution</h4>
                     <p className="text-muted-foreground text-sm">
-                      {selectedProject.title === "Blood Bridge"
-                        ? selectedProject.caseStudy?.solution
-                        : "We delivered a custom-built solution leveraging modern technologies, resulting in improved performance, user experience, and measurable business growth."}
+                      {selectedProject.caseStudy?.solution ?? "We delivered a custom-built solution leveraging modern technologies, resulting in improved performance, user experience, and measurable business growth."}
                     </p>
                   </div>
-                  {selectedProject.title === "Blood Bridge" && (
+                  {selectedProject.caseStudy && (
                     <>
                       <div>
                         <h4 className="font-bold text-foreground mb-2">Developed By</h4>
-                        <p className="text-muted-foreground text-sm">{selectedProject.caseStudy?.developedBy}</p>
+                        <p className="text-muted-foreground text-sm">{selectedProject.caseStudy.developedBy}</p>
                       </div>
                       <div>
                         <h4 className="font-bold text-foreground mb-2">GitHub Repository</h4>
-                        <p className="text-muted-foreground text-sm">👉 {selectedProject.caseStudy?.github}</p>
+                        <a
+                          href={selectedProject.caseStudy.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 text-primary hover:text-primary/80 text-sm font-medium"
+                        >
+                          <ExternalLink size={16} />
+                          View {selectedProject.title} on GitHub
+                        </a>
                       </div>
                       <div>
                         <h4 className="font-bold text-foreground mb-2">Key Features</h4>
                         <div className="flex flex-wrap gap-2">
-                          {selectedProject.caseStudy?.features.map((feature) => (
+                          {selectedProject.caseStudy.features.map((feature) => (
                             <span key={feature} className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">
                               {feature}
                             </span>
@@ -326,23 +399,20 @@ const PortfolioSection = () => {
                   <div>
                     <h4 className="font-bold text-foreground mb-2">Technologies</h4>
                     <div className="flex flex-wrap gap-2">
-                      {(selectedProject.title === "Blood Bridge"
-                        ? selectedProject.caseStudy?.techStack ?? []
-                        : ["React", "TypeScript", "Node.js", "PostgreSQL", "AWS"]
-                      ).map((t) => (
+                      {(selectedProject.caseStudy?.techStack ?? ["React", "TypeScript", "Node.js", "PostgreSQL", "AWS"]).map((t) => (
                         <span key={t} className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">{t}</span>
                       ))}
                     </div>
                   </div>
                   <div>
                     <h4 className="font-bold text-foreground mb-2">Results</h4>
-                    {selectedProject.title === "Blood Bridge" ? (
+                    {selectedProject.caseStudy ? (
                       <div className="space-y-3 rounded-lg bg-secondary p-4 text-sm text-muted-foreground">
-                        <p>{selectedProject.caseStudy?.statusNote}</p>
+                        <p>{selectedProject.caseStudy.statusNote}</p>
                         <div>
                           <h5 className="font-semibold text-foreground mb-1">Future Improvements</h5>
                           <ul className="space-y-1">
-                            {selectedProject.caseStudy?.future.map((item) => (
+                            {selectedProject.caseStudy.future.map((item) => (
                               <li key={item}>• {item}</li>
                             ))}
                           </ul>
@@ -359,6 +429,16 @@ const PortfolioSection = () => {
                         ))}
                       </div>
                     )}
+                  </div>
+
+                  <div className="mt-8 flex flex-wrap gap-3">
+                    <button
+                      type="button"
+                      onClick={scrollToContact}
+                      className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-all hover:bg-primary/90"
+                    >
+                      Contact Us
+                    </button>
                   </div>
                 </div>
               </motion.div>

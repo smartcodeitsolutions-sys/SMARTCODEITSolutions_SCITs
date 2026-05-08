@@ -362,12 +362,16 @@ const ServicesSection = () => {
                 <div className="grid gap-3 sm:grid-cols-2">
                   <a
                     href="#contact"
+                    onClick={() => setSelectedService(null)}
                     className="inline-flex items-center justify-center rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
                   >
                     Contact Us
                   </a>
                   <a
-                    href="#contact"
+                    href="https://wa.me/923022120509"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setSelectedService(null)}
                     className="inline-flex items-center justify-center rounded-xl border border-primary bg-transparent px-4 py-3 text-sm font-semibold text-primary hover:bg-primary/10 transition-colors"
                   >
                     Join Us
