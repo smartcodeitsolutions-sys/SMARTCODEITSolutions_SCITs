@@ -6,6 +6,7 @@ import logo from "@/assets/smartcode-logo.png";
 const navLinks = [
   { name: "Home", href: "#home" },
   { name: "Services", href: "#services" },
+  { name: "Case Studies", href: "#case-studies" },
   { name: "Portfolio", href: "#portfolio" },
   { name: "About Us", href: "#about" },
   { name: "Contact Us", href: "#contact" },

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import logo from "@/assets/smartcode-logo.png";
+import { Linkedin, Instagram, Youtube } from "lucide-react";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -13,8 +14,9 @@ const Footer = () => {
               <img src={logo} alt="SmartCode" className="h-8 w-8 rounded-md" />
               <span className="text-lg font-bold text-foreground">Smart<span className="text-primary">Code</span></span>
             </div>
-            <p className="text-muted-foreground text-sm max-w-sm mb-6 leading-relaxed">
-              Full-service digital transformation agency specializing in web development, AI, and strategic marketing.
+            
+            <p className="text-foreground text-base md:text-lg max-w-md mb-6 leading-relaxed font-semibold">
+              Excellence through focus. We accept a limited number of projects each month to ensure every client receives our full strategic attention.
             </p>
             {/* Newsletter */}
             <form onSubmit={(e) => { e.preventDefault(); setEmail(""); }} className="flex gap-2">
@@ -46,6 +48,36 @@ const Footer = () => {
               ))}
             </ul>
           </div>
+        </div>
+        {/* Social Media Links */}
+        <div className="flex justify-center gap-6 mb-8">
+          <a
+            href="https://www.linkedin.com/company/smartcode-it-solutions/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-10 h-10 rounded-full bg-secondary hover:bg-primary/10 flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
+            aria-label="LinkedIn"
+          >
+            <Linkedin size={20} />
+          </a>
+          <a
+            href="https://www.instagram.com/smartcode_it_solution?igsh=MXVxenFxeXF2Nm5zcQ=="
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-10 h-10 rounded-full bg-secondary hover:bg-primary/10 flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
+            aria-label="Instagram"
+          >
+            <Instagram size={20} />
+          </a>
+          <a
+            href="https://youtube.com/@smartcodeitsolutions?si=8TX36j0WflNJq1MQ"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-10 h-10 rounded-full bg-secondary hover:bg-primary/10 flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
+            aria-label="YouTube"
+          >
+            <Youtube size={20} />
+          </a>
         </div>
         <div className="border-t border-border pt-8 text-center text-sm text-muted-foreground">
           © {new Date().getFullYear()} Smart Code IT Solutions. All rights reserved.
